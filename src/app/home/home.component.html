@@ -1,0 +1,40 @@
+<mat-toolbar  class="toolbar">
+    
+  <button mat-flat-button [disableRipple]="true" class="landing"><img src="assets/icons8-customer-service-chat-100.png"/>Voice Forms</button>
+  <button mat-flat-button color="primary" (click)="_authService.logoutUser()"class="login-btn hovr">Logout</button>
+</mat-toolbar>
+
+<div class="task-bar">
+  <div class="createbtn">
+    <button class="create-btn" routerLink="/create">Create Form</button>
+  </div>
+  <div class="heading">
+    <button class="sort-btn">
+      <img src="https://cdn-icons-png.flaticon.com/512/81/81996.png" /><span
+        >Title [a-z]</span
+      >
+    </button>
+  </div>
+</div>
+<div class="home-flex">
+<div class="hf-1">
+
+</div>
+<div  class="hf-2">
+  <div   *ngFor="let form of userForms" class="u-forms">
+    <img src="assets/icons8-form-64.png"   />
+    <h3>{{form.heading}}</h3>
+    <div class="edit">
+    <div class="editelem"routerLink="/create/{{form.heading}}">
+      EditForm
+    </div>
+    <div class="editelem"routerLink="/display/{{form.heading}}">
+      Download
+    </div>
+    <div class="editelem" (click)="deleteForm(form.heading)">
+        delete
+    </div>
+  </div>
+  </div>
+</div>
+</div>

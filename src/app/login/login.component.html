@@ -1,0 +1,42 @@
+<mat-toolbar  class="toolbar">
+    
+  <button mat-flat-button (click)="content = 'landing'"[disableRipple]="true" class="landing"><img src="assets/icons8-customer-service-chat-100.png"/>Voice Forms</button>
+  <button mat-flat-button color="primary" (click)="content='login'"class="login-btn hovr">Login</button>
+  <button mat-flat-button color="primary" (click)="content = 'register'" class="hovr">Register</button>
+</mat-toolbar>
+
+  <div class="cont" *ngIf="content === 'landing'">
+      
+      <img src="assets/undraw_resume_re_hkth.svg">
+      <h1><em>"Build Forms Using Voice"</em></h1>
+  </div>
+<div *ngIf="content === 'login'" class="login-cont">
+    <h1>Login</h1>
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput  [(ngModel)]="loginUserData.email" name="email" placeholder = "Ex:abc@gmail.com"/>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="loginUserData.password" name="password" type="password">
+          </mat-form-field>
+          <button (click)="loginUser()" mat-flat-button color="primary">Login</button>
+       
+      </form>
+</div>
+<div *ngIf="content === 'register'" class="login-cont">
+    <h1>Register</h1>
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input [(ngModel)]="registerUserData.email" name="email"matInput placeholder = "Ex:abc@gmail.com"/>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="registerUserData.password" name="password" type="password">
+          </mat-form-field>
+          <button mat-flat-button (click)="registerUser()"color="primary" >Register</button>
+       
+      </form>
+</div>

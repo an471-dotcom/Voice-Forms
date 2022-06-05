@@ -1,0 +1,72 @@
+<mat-toolbar  class="toolbar">
+    
+  <button mat-flat-button routerLink="/home"[disableRipple]="true" class="landing"><img src="assets/icons8-customer-service-chat-100.png"/>Voice Forms</button>
+  <button mat-flat-button color="primary" (click)="_authService.logoutUser()"class="login-btn hovr">Logout</button>
+</mat-toolbar>
+
+  <button mat-mini-fab color="accent"matTooltip="download"  (click)="dwld()" class="dwld-btn"><span class="material-icons">
+    file_download
+    </span></button>
+<!-- <form [formGroup]="myForm" id="form">
+<div  style="width: 30%;margin-top:20px;max-width: 38em;padding: 1em 3em 2em 3em;margin:0 auto;background-color: white;font-size: 16px;font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;border-radius: 4.2px;box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);">
+
+
+    <h2 style=" text-transform: capitalize;padding-top:20px;padding-bottom: 20px;font-size: 26px;color:#3f51b5;margin-bottom: 0;font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">
+        {{formObject.heading}}
+    </h2>
+<div formArrayName="formArray">
+<div *ngFor="let item of myForm.get('formArray').controls; let i = index" [formGroupName]="i"  >
+
+    <div style="margin-bottom: 20px;" *ngIf="textInputs.includes(item.value.type)">
+        <label style=" display: block;font-size: 16px;color:#3f51b5;margin-bottom: 10px;text-transform: capitalize;font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">{{item.value.fname}}</label>
+        <input  style = " width: 100%;height: 34px;background-color: #f9f9f9;border: 1px solid #e5e5e5;" type={{item.value.type}} id="{{item.value.id}}"/>
+    </div>
+    <div style="margin-bottom: 20px;" *ngIf="item.value.type === 'radio' || item.value.type === 'checkbox'">
+        <label style=" display: block;font-size: 16px;color:#3f51b5;margin-bottom: 10px;text-transform: capitalize;font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">{{item.value.fname}}</label>
+        <div *ngFor="let k of item.value.fields">
+            <input style="height: 34px;width: 20px;" type="{{item.value.type}}" id="{{ item.value.id }}" name="{{ item.value.name }}" value = {{k}} />
+            <label style="display: inline-block;font-size: 16px;color: black;margin-top: -15px;vertical-align: middle;text-transform: capitalize;font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">{{ k }}</label>
+          </div>
+    </div>
+    <div style="margin-bottom: 20px;" *ngIf="item.value.type === 'select'">
+        <label style=" display: block;font-size: 16px;color:#3f51b5;margin-bottom: 10px;text-transform: capitalize;font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">{{item.value.fname}}</label>
+        <select style="width: 100%;height: 34px;padding:5px;background-color: #f9f9f9;border: 1px solid #e5e5e5;">
+            <option *ngFor="let k of item.value.fields" value="{{k}}">{{k}}</option>
+        </select>
+    </div>
+</div>
+</div>
+<button style="font-size: 1.25rem; padding: .5em; width: 100%;font-weight: 500;background-color: #6658d3;border-radius: 6px;color: #fff;border: 0;">Submit</button>
+</div>
+</form> -->
+<form  class="cus" id="form">
+    <div [ngStyle]="{ width: '30%',maxWidth: '38em',padding: '1em 3em 2em 3em',margin: '0 auto',backgroundColor: 'white',fontSize: '16px',borderRadius: '4.2px',boxShadow: '0px 3px 10px -2px rgba(0, 0, 0, 0.2)'}" style=' font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;'>
+    <h2 [ngStyle]="{ textTransform: 'capitalize',paddingTop: '20px',paddingBottom: '20px',fontSize: '26px',color: '#3f51b5',marginBottom: '0'}"style=' font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;'>
+        {{myForm.heading}}
+    </h2>
+    <div >
+      <div *ngFor="let item of myForm.fields; let i = index" >
+       
+       <div style="margin-bottom: 20px;" *ngIf="textInputs.includes(item.type)">
+        <h3 [ngStyle]="{fontSize: '16px',color: '#3f51b5',marginBottom: '10px',textTransform: 'capitalize'}"  style=' font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;'>{{item.fname}}</h3>
+        <input [ngStyle]="{width: '100%',height: '34px',backgroundColor: '#f9f9f9',border: '1px solid #e5e5e5'}"class="cus-input"type={{item.type}} id={{item.id}}/>
+       </div>
+       <div class="component" *ngIf="item.type === 'radio' || item.type === 'checkbox'">
+         <h3 [ngStyle]="{fontSize: '16px',color: '#3f51b5',marginBottom: '10px',textTransform: 'capitalize'}"  style=' font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;'>{{item.fname}}</h3>
+        <div *ngFor="let k of item.fields">
+          <input [ngStyle]="{height: '34px',width: '20px'}" type="{{item.type}}" id="{{ item.id }}" name="{{ item.name }}" value = {{k}} />
+          <label [ngStyle]="{display: 'inline-block',fontSize: '16px',color: 'black',marginTop: '-15px',verticalAlign: 'middle',textTransform: 'capitalize'}" style=' font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;'>{{ k }}</label>
+        </div>
+        </div>
+        <div  class="component" *ngIf="item.type === 'select'">
+          <h3 [ngStyle]="{fontSize: '16px',color: '#3f51b5',marginBottom: '10px',textTransform: 'capitalize'}"  style=' font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;'>{{item.fname}}</h3>
+          <select [ngStyle]="{width: '100%',height: '34px',backgroundColor: '#f9f9f9',padding:'5px',border: '1px solid #e5e5e5'}">
+              <option *ngFor="let k of item.fields" value="{{k}}">{{k}}</option>
+          </select>
+        </div>
+      </div>
+      <button [ngStyle]="{fontSize: '1.25rem',padding: '0.5em',width: '100%',fontWeight: '500',backgroundColor: '#6658d3',borderRadius: '6px',color: '#fff',border: '0','marginTop':'10px'}" >Submit</button>
+    </div>
+</div>
+  </form>
+  

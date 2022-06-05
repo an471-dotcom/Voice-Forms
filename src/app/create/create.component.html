@@ -1,0 +1,175 @@
+<mat-toolbar  class="toolbar">
+    
+  <button mat-flat-button (click)="content = 'landing'"[disableRipple]="true" routerLink="/home"class="landing"><img src="assets/icons8-customer-service-chat-100.png"/>Voice Forms</button>
+  <button mat-flat-button color="primary" (click)="_authService.logoutUser()"class="login-btn hovr">Logout</button>
+</mat-toolbar>
+<div *ngIf="voiceActiveSectionDisabled; else voicesection;">
+    <button mat-mini-fab color="primary" type="button" (click)="startVoiceRecognition()"><span class="material-icons">
+      mic
+      </span></button>
+  </div>
+  <ng-template #voicesection>
+    <ng-container
+      *ngIf="!voiceActiveSectionError; else failure">
+      <ng-container
+        *ngIf="voiceText; else start">
+        <button mat-button color="primary">{{voiceText}}</button>
+      </ng-container>
+      <ng-template #start>
+        <ng-container
+          *ngIf="voiceActiveSectionListening; else beginning">
+          <button mat-button color="primary">Listening...</button>
+        </ng-container>
+        <ng-template #beginning>
+          <button mat-button color="primary">Start Talking...</button>
+        </ng-template>
+      </ng-template>
+    </ng-container>
+    <ng-template #failure>
+      <span>Didn't catch that</span>
+    </ng-template>
+    <div>
+      <button mat-mini-fab (click)="closeVoiceRecognition()"><span class="material-icons">
+        cancel
+        </span></button>
+      <button mat-mini-fab (click)="startVoiceRecognition()"><span class="material-icons">
+        restart_alt
+        </span></button>
+    </div>
+  </ng-template>
+  <div>
+    <div class="tool-con">
+      <button mat-mini-fab color="accent" matTooltip="Preview" routerLink = "/display" (click)="preview()" class="pre-btn">
+        <span class="material-icons">
+          preview
+          </span>          
+      </button>
+    <button mat-mini-fab color="warn" (click)="update()" matTooltip="Update"aria-label="Example icon button with a delete icon">
+      <mat-icon>update</mat-icon>
+    </button>
+    <button mat-mini-fab color="primary" matTooltip="save"  (click)="save()" ><span class="material-icons">
+      save
+      </span></button>
+    </div>
+    
+<!-- <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Field Name</mat-label>
+    <input matInput placeholder="Ex. text" #fname type="text">
+  </mat-form-field> -->
+  <div class="flex">
+    <div class="form">
+      <!-- <div class="form-elements">
+        <label>Field Name</label>
+        <input type="text" #fname id="fname1" />
+      </div> -->
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Field Name</mat-label>
+        <input matInput  #fname type="text">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Type</mat-label>
+        <input matInput placeholder="Ex. text" #type type="text">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Id</mat-label>
+        <input matInput  #id type="text">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name </mat-label>
+        <input matInput  #nname type="text">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Fields</mat-label>
+        <textarea matInput #fields></textarea>
+      </mat-form-field>
+      
+      <div class="form-elements">
+        <button mat-raised-button color="accent" (click)="
+        display(fname.value, type.value, id.value, nname.value, fields.value)
+      "
+      #add>Add</button>
+      <button mat-raised-button  (click)="clearfn()"#clear>Clear</button>
+        
+      </div>
+    </div>
+
+    <div class="form-c">
+      <div #head contenteditable="true" class="heading" >Form Title</div>
+    <!-- <form [formGroup]="myForm" class="cus" id="form">
+      <div formArrayName="formArray">
+        <div *ngFor="let item of myForm.get('formArray').controls; let i = index" [formGroupName]="i">
+         <mat-card  class="component" *ngIf="textInputs.includes(item.value.type)">
+          <h3>{{item.value.fname}}</h3>
+          <input class="cus-input"type={{item.value.type}} id={{item.value.id}}/>
+          <button class="delete-btn" mat-mini-fab color="primary" (click)="deleteItem(item.value)" aria-label="Example icon button with a delete icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+          
+         </mat-card>
+         <mat-card class="component" *ngIf="item.value.type === 'radio' || item.value.type === 'checkbox'">
+           <h3>{{item.value.fname}}</h3>
+          <div *ngFor="let k of item.value.fields">
+            <input class="cus-input" type="{{item.value.type}}" id="{{ item.value.id }}" name="{{ item.value.name }}" value = {{k}} />
+            <label>{{ k }}</label>
+          </div>
+          <button class="delete-btn" mat-mini-fab color="primary" (click)="deleteItem(item.value)" aria-label="Example icon button with a delete icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+         
+        </mat-card>
+          <mat-card  class="component" *ngIf="item.value.type === 'select'">
+            <h3>{{item.value.fname}}</h3>
+            <select >
+                <option *ngFor="let k of item.value.fields" value="{{k}}">{{k}}</option>
+            </select>
+            <button class="delete-btn" mat-mini-fab color="primary" (click)="deleteItem(item.value)" aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button>
+            
+          </mat-card>
+        </div>
+      </div>
+    </form> -->
+    <form  class="cus" id="form">
+      <div>
+        <div *ngFor="let item of arr; let i = index">
+         <mat-card  class="component" *ngIf="textInputs.includes(item.type)">
+          <h3>{{item.fname}}</h3>
+          <input class="cus-input"type={{item.type}} id={{item.id}}/>
+          <button class="delete-btn" mat-mini-fab color="primary" (click)="deleteItem(item)" aria-label="Example icon button with a delete icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+          
+         </mat-card>
+         <mat-card class="component" *ngIf="item.type === 'radio' || item.type === 'checkbox'">
+           <h3>{{item.fname}}</h3>
+          <div *ngFor="let k of item.fields">
+            <input class="cus-input" type="{{item.type}}" id="{{ item.id }}" name="{{ item.name }}" value = {{k}} />
+            <label>{{ k }}</label>
+          </div>
+          <button class="delete-btn" mat-mini-fab color="primary" (click)="deleteItem(item)" aria-label="Example icon button with a delete icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+         
+        </mat-card>
+          <mat-card  class="component" *ngIf="item.type === 'select'">
+            <h3>{{item.fname}}</h3>
+            <select >
+                <option *ngFor="let k of item.fields" value="{{k}}">{{k}}</option>
+            </select>
+            <button class="delete-btn" mat-mini-fab color="primary" (click)="deleteItem(item)" aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button>
+            
+          </mat-card>
+        </div>
+      </div>
+    </form>
+    <button mat-raised-button color="primary" class="sub-btn">submit</button>
+    </div>
+  </div>
+  
+ 
+  <pre>{{myForm.value | json}}</pre>
+ 
+  
